@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#061514" />
+    <title>Matchday 3D</title>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="game-shell">
+      <canvas id="game-canvas"></canvas>
+
+      <div id="loading"><span class="ball-dot"></span> Building the stadium…</div>
+
+      <section id="hud" class="hidden" aria-label="Match HUD">
+        <div class="scoreboard glass">
+          <div class="team-score home"><span id="hud-home-name">ROYALS</span><b id="hud-home-score">0</b></div>
+          <div class="clock-wrap"><span id="hud-period">1ST HALF</span><strong id="hud-clock">00:00</strong><small id="hud-status">KICK-OFF</small></div>
+          <div class="team-score away"><b id="hud-away-score">0</b><span id="hud-away-name">COMETS</span></div>
+        </div>
+        <div id="event-banner" aria-live="polite"></div>
+        <div class="top-pills">
+          <div class="pill"><span>CONTROL</span><b id="controlled-name">CM • #8</b></div>
+          <div class="pill stamina"><span>STAMINA</span><i><em id="stamina-bar"></em></i></div>
+        </div>
+        <div class="radar-wrap glass"><canvas id="radar" width="210" height="126"></canvas></div>
+        <div class="bottom-ui">
+          <div class="control-hint glass"><kbd>WASD</kbd><span>Move</span><kbd>SHIFT</kbd><span>Sprint</span><kbd>J</kbd><span>Pass</span><kbd>L</kbd><span>Long</span><kbd>K</kbd><span>Hold / Shoot</span><kbd>Q</kbd><span>Switch</span><kbd>SPACE</kbd><span>Tackle</span><kbd>E</kbd><span>Slide</span></div>
+          <div id="shot-meter" class="shot-meter"><span>SHOT</span><i><em></em></i></div>
+        </div>
+      </section>
+
+      <main id="menu" class="menu-screen">
+        <div class="menu-panel glass">
+          <div class="eyebrow"><i></i> ORIGINAL 3D FOOTBALL</div>
+          <h1>MATCH<span>DAY</span><small>3D</small></h1>
+          <p class="tagline">A fast, broadcast-style football match in a living stadium.</p>
+
+          <div class="selection-row">
+            <div class="selection-block">
+              <h2>Your Club</h2>
+              <div id="home-team-grid" class="team-grid" aria-label="Choose your team"></div>
+            </div>
+            <div class="versus">VS</div>
+            <div class="selection-block">
+              <h2>Opponent</h2>
+              <div id="away-team-grid" class="team-grid" aria-label="Choose opponent"></div>
+            </div>
+          </div>
+
+          <div class="match-options">
+            <label>Match length
+              <select id="match-length"><option value="120">2 mins</option><option value="240" selected>4 mins</option><option value="360">6 mins</option></select>
+            </label>
+            <label>AI difficulty
+              <select id="difficulty"><option value="easy">Easy</option><option value="hard" selected>Hard</option></select>
+            </label>
+            <div class="club-preview"><span id="preview-home-kit"></span><b id="preview-home">Harbor Royals</b><small id="preview-stats">ATT 82 · DEF 79 · PAC 84</small></div>
+          </div>
+          <button id="kickoff" class="kickoff-btn"><span>▶</span> KICK OFF</button>
+          <p class="menu-note">Full squads · passing · shooting · goalkeepers · set pieces · simplified offside</p>
+        </div>
+      </main>
+
+      <section id="pause-card" class="modal hidden glass">
+        <div class="modal-kicker">MATCH PAUSED</div>
+        <h2>Take a breath.</h2>
+        <button id="resume">RESUME <small>ESC</small></button>
+        <button id="restart" class="secondary">RESTART MATCH</button>
+        <button id="back-menu" class="ghost">BACK TO TEAM SELECT</button>
+      </section>
+
+      <section id="result-card" class="modal hidden glass">
+        <div class="modal-kicker">FULL TIME</div>
+        <h2 id="result-title">Match complete</h2>
+        <div class="result-score"><b id="result-home">0</b><span>—</span><b id="result-away">0</b></div>
+        <div class="result-teams"><span id="result-home-name">ROYALS</span><span id="result-away-name">COMETS</span></div>
+        <div class="match-stats"><div><small>SHOTS</small><b id="stat-shots">0 – 0</b></div><div><small>POSSESSION</small><b id="stat-possession">50% – 50%</b></div><div><small>FOULS</small><b id="stat-fouls">0 – 0</b></div></div>
+        <button id="play-again">PLAY AGAIN</button>
+        <button id="results-menu" class="ghost">TEAM SELECT</button>
+      </section>
+
+      <div id="help-tip" class="hidden">Press <kbd>ESC</kbd> to pause</div>
+    </div>
+    <script type="importmap">
+      { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js" } }
+    </script>
+    <script type="module" src="./game.js"></script>
+  </body>
+</html>
